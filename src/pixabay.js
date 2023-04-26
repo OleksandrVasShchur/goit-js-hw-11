@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 
 axios.defaults.baseURL = 'https://pixabay.com/api/';
@@ -28,7 +29,17 @@ export class PixabayAPI {
         const urlAXIOS = `?key=${API_KEY}&q=${this.#query}&page=${this.#page}&per_page=${this.#per_page}`;
 
         const { data } = await axios.get(urlAXIOS, { params, });
+        console.log(data);
+        
+        console.log(data.hits)
+        if(data.hits < 40){
+            Notify.info("We're sorry, but you've reached the end of search results.")
+        
+        }
+
         return data;
+
+        
     }
 
     get query() {
