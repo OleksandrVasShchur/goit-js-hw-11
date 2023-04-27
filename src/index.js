@@ -59,7 +59,7 @@ const loadMorePhotos = async function (entries, observer) {
         modalLightboxGallery.refresh();
         scrollPage();
       } catch (error) {
-        Notify.failure(error.message, 'Something went wrong!');
+        // Notify.failure(error.message, 'Something went wrong!');
         clearPage();
       } 
     }
