@@ -29,18 +29,12 @@ export class PixabayAPI {
         const urlAXIOS = `?key=${API_KEY}&q=${this.#query}&page=${this.#page}&per_page=${this.#per_page}`;
 
         const { data } = await axios.get(urlAXIOS, { params, });
-        console.log(data);
+
         
-        console.log(data.hits)
-        if(data.hits < 40){
-            Notify.info("We're sorry, but you've reached the end of search results.")
-        return;
-        }
-
         return data;
-
         
     }
+
 
     get query() {
         this.#query;
@@ -63,7 +57,8 @@ export class PixabayAPI {
     }
 
     hasMorePhotos() {
-       
+
+
         return this.#page < Math.ceil(this.#totalPages / this.#per_page);
        
         }

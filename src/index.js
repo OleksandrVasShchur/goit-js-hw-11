@@ -5,7 +5,6 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import { createMarkup } from './markup.js';
 import { PixabayAPI } from './pixabay.js';
 
-
 const refs = {
   form: document.querySelector('.search-form'),
   gallery: document.querySelector('.gallery'),
@@ -44,6 +43,15 @@ const loadMorePhotos = async function (entries, observer) {
       try {
     
         const { hits } = await pixaby.getPhotos();
+
+        console.log("is...", hits);
+        if(hits.length < 40) {
+
+          Notify.info("We're sorry, but you've reached the end of search results.")
+          return;
+        }
+
+
         const markup = createMarkup(hits);
         refs.gallery.insertAdjacentHTML('beforeend', markup);
 
@@ -59,7 +67,7 @@ const loadMorePhotos = async function (entries, observer) {
         modalLightboxGallery.refresh();
         scrollPage();
       } catch (error) {
-        // Notify.failure(error.message, 'Something went wrong!');
+        Notify.failure(error.message, 'Something went wrong!');
         clearPage();
       } 
     }
